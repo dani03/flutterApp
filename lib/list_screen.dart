@@ -1,3 +1,5 @@
+import 'package:firstapp/detail_screen.dart';
+import 'package:firstapp/text_content.dart';
 import 'package:flutter/material.dart';
 
 class ListScreen extends StatelessWidget {
@@ -17,14 +19,32 @@ class ListScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           var playerData = data['results'][index];
           var playerName = playerData['player_name'];
-          
-          
-          return ListTile(
-            title: Text(playerName),
-          
+          var playerGames = playerData['games'];
+
+          return GestureDetector(
+            onTap: () {
+              navigateToDetailScreen(context, playerName, playerGames);
+            },
+            child: ListTile(
+              title: Text(playerName),
+              subtitle: Text('Games: $playerGames'),
+              selectedColor: const Color.fromARGB(255, 21, 92, 146),
+              textColor: const Color.fromARGB(255, 12, 179, 40),
+            ),
           );
         },
       ),
     );
   }
+}
+
+void navigateToDetailScreen(BuildContext context, String playerName, int playerGames) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DetailScreen(
+        playerName: playerName,
+      ),
+    ),
+  );
 }
