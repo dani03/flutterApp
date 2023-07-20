@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ListScreen extends StatelessWidget {
-  final List<dynamic> data;
+  final Map<String, dynamic> data;
   final String parameter;
 
   const ListScreen({required this.data, required this.parameter, super.key});
@@ -13,12 +13,15 @@ class ListScreen extends StatelessWidget {
         title: Text(parameter.toUpperCase()),
       ),
       body: ListView.builder(
-        itemCount: data.length,
+        itemCount: data['results'].length,
         itemBuilder: (context, index) {
-          var item = data[index];
+          var playerData = data['results'][index];
+          var playerName = playerData['player_name'];
+          
+          
           return ListTile(
-            title: Text(item['title'] ? 'oui': 'non il y a pas de titre'),
-            subtitle: Text(item['description'] ? 'oui' : 'non il y a pas de sous titre'),
+            title: Text(playerName),
+          
           );
         },
       ),

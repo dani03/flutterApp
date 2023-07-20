@@ -25,18 +25,20 @@ class GradientContainer extends StatefulWidget {
 }
 
 class _GradientContainerState extends State<GradientContainer> {
-  List<dynamic> apiData = [];
+  Map<String, dynamic> apiData = {};
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    print('state initailisation');
+    fetchData(
+        'https://nba-stats-db.herokuapp.com/api/top_assists/playoffs/2022/');
   }
 
-  Future<void> fetchData() async {
+  Future<void> fetchData(String endpoint) async {
+    print('fetch data call here');
     try {
-      var response = await http.get(Uri.parse(
-          'https://nba-stats-db.herokuapp.com/api/top_assists/playoffs/2022/'));
+      var response = await http.get(Uri.parse(endpoint));
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         setState(() {
@@ -69,13 +71,17 @@ class _GradientContainerState extends State<GradientContainer> {
             ButtonWidget(
               'scorers',
               onPressed: () {
+                fetchData(
+                    'https://nba-stats-db.herokuapp.com/api/playerdata/topscorers/total/season/2023/');
                 navigateToListScreen(context, 'scorers');
               },
             ),
             const SizedBox(height: 20),
             ButtonWidget(
-              'passeurs',
+              'Passeurs',
               onPressed: () {
+                fetchData(
+                    'https://nba-stats-db.herokuapp.com/api/top_assists/totals/2023/');
                 navigateToListScreen(context, 'passeurs');
               },
             ),
@@ -83,6 +89,8 @@ class _GradientContainerState extends State<GradientContainer> {
             ButtonWidget(
               'rebonds',
               onPressed: () {
+                fetchData(
+                    'https://nba-stats-db.herokuapp.com/api/top_rebounds/totals/2023/');
                 navigateToListScreen(context, 'rebonds');
               },
             ),
