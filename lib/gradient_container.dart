@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firstapp/list_screen.dart';
-import 'package:test/test.dart';
 
 const startAligment = Alignment.topLeft;
 AlignmentGeometry endAligment = Alignment.bottomRight;
@@ -31,13 +30,12 @@ class _GradientContainerState extends State<GradientContainer> {
   @override
   void initState() {
     super.initState();
-   
+
     fetchData(
         'https://nba-stats-db.herokuapp.com/api/playerdata/topscorers/total/season/2023/');
   }
 
   Future<void> fetchData(String endpoint) async {
-
     try {
       var response = await http.get(Uri.parse(endpoint));
       if (response.statusCode == 200) {
@@ -46,7 +44,7 @@ class _GradientContainerState extends State<GradientContainer> {
           apiData = data;
         });
       } else {
-       // print('erreur dans le code: ${response.statusCode}.');
+        // print('erreur dans le code: ${response.statusCode}.');
       }
     } catch (e) {
       print('Error: $e');

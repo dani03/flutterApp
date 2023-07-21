@@ -29,6 +29,7 @@ class ListScreen extends StatelessWidget {
 
           var playerGames = playerData['games'];
           var playerAge = playerData['age'];
+          var playerTeam = playerData['team'];
 
           return GestureDetector(
             onTap: () {
@@ -44,7 +45,7 @@ class ListScreen extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                'Games: $playerGames , age:  $playerAge ans.',
+                'équipe : $playerTeam, age:  $playerAge ans.',
                 style: const TextStyle(fontSize: 18, color: Colors.black54),
               ),
             ),
