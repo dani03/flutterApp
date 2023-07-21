@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firstapp/list_screen.dart';
+import 'package:test/test.dart';
 
 const startAligment = Alignment.topLeft;
 AlignmentGeometry endAligment = Alignment.bottomRight;
@@ -30,13 +31,13 @@ class _GradientContainerState extends State<GradientContainer> {
   @override
   void initState() {
     super.initState();
-    print('state initailisation');
+   
     fetchData(
-        'https://nba-stats-db.herokuapp.com/api/top_assists/playoffs/2022/');
+        'https://nba-stats-db.herokuapp.com/api/playerdata/topscorers/total/season/2023/');
   }
 
   Future<void> fetchData(String endpoint) async {
-    print('fetch data call here');
+
     try {
       var response = await http.get(Uri.parse(endpoint));
       if (response.statusCode == 200) {
@@ -45,7 +46,7 @@ class _GradientContainerState extends State<GradientContainer> {
           apiData = data;
         });
       } else {
-        print('erreur dans le code: ${response.statusCode}.');
+       // print('erreur dans le code: ${response.statusCode}.');
       }
     } catch (e) {
       print('Error: $e');
@@ -54,6 +55,7 @@ class _GradientContainerState extends State<GradientContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(

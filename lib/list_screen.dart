@@ -1,10 +1,13 @@
 import 'package:firstapp/detail_screen.dart';
-import 'package:firstapp/text_content.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'dart:convert';
+
+// -- coding: utf-8 --
 class ListScreen extends StatelessWidget {
   final Map<String, dynamic> data;
   final String parameter;
+  final Utf8Encoder utf8Encoder = const Utf8Encoder();
 
   const ListScreen({required this.data, required this.parameter, super.key});
 
@@ -19,6 +22,11 @@ class ListScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           var playerData = data['results'][index];
           var playerName = playerData['player_name'];
+          playerName = replaceString(playerName);
+
+          // List<int> encodedBytes = utf8.encode(playerName);
+          // playerName = utf8.decode(encodedBytes);
+
           var playerGames = playerData['games'];
           var playerAge = playerData['age'];
 
@@ -45,6 +53,12 @@ class ListScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+String replaceString(text) {
+  const caracterToChange = 'ÄiÄ';
+  const caracterToAdd = 'ć';
+  return text.replaceAll(caracterToChange, caracterToAdd);
 }
 
 void navigateToDetailScreen(
