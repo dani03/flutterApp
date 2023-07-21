@@ -59,32 +59,56 @@ class _DetailScreenState extends State<DetailScreen> {
         title: Text(widget.playerName),
       ),
       body: Align(
-        alignment: Alignment.topCenter,
-        child: Column(
-          children: [
-            Text('Player Name: ${widget.playerName}'),
-            // Display other player stats using playerStats
-            if (playerStats != null)
-              for (var playerSeason in playerStats!)
-                Column(
+          alignment: Alignment.topCenter,
+          child: playerStats != null
+              ? ListView(
                   children: [
-                    TextButton(
-                        onPressed: () {
-                          setState(() {
-                            season = playerSeason['season'];
-                          });
-                        },
-                        child: Text(playerSeason['season'].toString())),
-                    if (season == playerSeason['season']) 
-                      Text(playerSeason['games'].toString()),
-                      Text('matches débutés: ${playerSeason['games_started'].toString()}'),
+                    // Display other player stats using playerStats
+
+                    for (var playerSeason in playerStats!)
+                      Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  season = playerSeason['season'];
+                                });
+                              },
+                              child: Text(
+                                playerSeason['season'].toString(),
+                                style: const TextStyle(fontSize: 28),
+                              )),
+                          if (season == playerSeason['season'])
+                            Column(
+                              children: [
+                                Text(
+                                  '${playerSeason['games'].toString()} matches',
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                                Text(
+                                  'équipe: ${playerSeason['team'].toString()}',
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                                Text(
+                                  'matches débutés: ${playerSeason['games_started'].toString()}',
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                                Text(
+                                  'Nombre de panier: ${playerSeason['field_goals'].toString()}',
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                                Text(
+                                  'Nombre de points: ${playerSeason['PTS'].toString()}',
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              ],
+                            ),
+                        ],
+                      )
                   ],
                 )
-            else
-              const CircularProgressIndicator()
-          ],
-        ),
-      ),
+              : const CircularProgressIndicator()),
     );
   }
 }

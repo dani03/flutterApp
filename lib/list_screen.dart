@@ -20,16 +20,25 @@ class ListScreen extends StatelessWidget {
           var playerData = data['results'][index];
           var playerName = playerData['player_name'];
           var playerGames = playerData['games'];
+          var playerAge = playerData['age'];
 
           return GestureDetector(
             onTap: () {
               navigateToDetailScreen(context, playerName, playerGames);
             },
             child: ListTile(
-              title: Text(playerName),
-              subtitle: Text('Games: $playerGames'),
-              selectedColor: const Color.fromARGB(255, 21, 92, 146),
-              textColor: const Color.fromARGB(255, 12, 179, 40),
+              title: Text(
+                playerName,
+                style: const TextStyle(
+                  fontSize: 23,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                'Games: $playerGames , age:  $playerAge ans.',
+                style: const TextStyle(fontSize: 18, color: Colors.black54),
+              ),
             ),
           );
         },
@@ -38,7 +47,8 @@ class ListScreen extends StatelessWidget {
   }
 }
 
-void navigateToDetailScreen(BuildContext context, String playerName, int playerGames) {
+void navigateToDetailScreen(
+    BuildContext context, String playerName, int playerGames) {
   Navigator.push(
     context,
     MaterialPageRoute(
